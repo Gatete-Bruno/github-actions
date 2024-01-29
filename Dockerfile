@@ -7,8 +7,6 @@ RUN go mod download
 
 # Copy the necessary files of the application
 COPY main.go .
-COPY ./static /app/static
-#COPY static ./static
 
 # Build the binary of the app named "main"
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
@@ -18,9 +16,11 @@ FROM golang:latest
 
 WORKDIR /app
 
-# Copy "main" binary and static folder into the current dir
+# Copy "main" binary
 COPY --from=build /app/main .
-COPY --from=build /app/static ./static
+
+# Copy static folder into the current dir
+COPY ./static /app/static
 
 EXPOSE 3000
 
