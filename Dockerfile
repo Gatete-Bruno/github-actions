@@ -7,7 +7,8 @@ RUN go mod download
 
 # Copy the necessary files of the application
 COPY main.go .
-COPY static ./static
+COPY ./static /app/static
+#COPY static ./static
 
 # Build the binary of the app named "main"
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
