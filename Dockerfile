@@ -5,8 +5,9 @@ WORKDIR /app
 COPY go.mod ./
 RUN go mod download
 
-# Copy all files in the current directory to the app directory
-COPY . .
+# Copy the necessary files of application
+COPY main.go .
+COPY static ./static
 
 # build the binary of app named "main"
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
